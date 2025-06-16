@@ -1,0 +1,3252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Travel Budget Calculator & Guide 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1d1d1f;
+            background: #f5f5f7;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+        }
+
+        .header .flag {
+            display: inline-block;
+            font-size: 4rem;
+            margin-right: 20px;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        .header p {
+            font-size: 1.5rem;
+            color: #6e6e73;
+            font-weight: 400;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .calculator-section, .results-section {
+            background: white;
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e5e5e7;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 30px;
+            letter-spacing: -0.02em;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #1d1d1f;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 16px;
+            border: 1.5px solid #d2d2d7;
+            border-radius: 12px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #007aff;
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 12px;
+            margin-top: 12px;
+            max-height: 240px;
+            overflow-y: auto;
+            border: 1.5px solid #d2d2d7;
+            padding: 20px;
+            border-radius: 12px;
+            background: #fbfbfd;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e5e7;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-item:hover {
+            border-color: #007aff;
+            background: #f0f8ff;
+        }
+
+        .checkbox-item input {
+            width: auto;
+            margin-right: 12px;
+            accent-color: #007aff;
+        }
+
+        .btn-calculate {
+            width: 100%;
+            padding: 18px;
+            background: #007aff;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-calculate:hover {
+            background: #0056cc;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+        }
+
+        .btn-calculate:active {
+            transform: translateY(0);
+        }
+
+        .budget-breakdown {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #f2f2f2;
+            font-size: 16px;
+        }
+
+        .budget-item:last-child {
+            border-bottom: none;
+        }
+
+        .budget-item span:first-child {
+            color: #1d1d1f;
+            font-weight: 500;
+        }
+
+        .budget-item span:last-child {
+            color: #007aff;
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .budget-summary {
+            background: linear-gradient(135deg, #f8f9ff, #f0f8ff);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 2px solid #007aff;
+        }
+
+        .budget-summary h4 {
+            color: #1d1d1f;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .budget-totals {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .budget-total-item {
+            text-align: center;
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            border: 1px solid #e5e5e7;
+        }
+
+        .budget-total-item .amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007aff;
+            margin-bottom: 4px;
+        }
+
+        .budget-total-item .label {
+            font-size: 15px;
+            color: #6e6e73;
+            font-weight: 500;
+        }
+
+        .tabs {
+            background: white;
+            border-radius: 18px;
+            margin-top: 60px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 1px solid #e5e5e7;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #f2f2f2;
+            border-radius: 18px 18px 0 0;
+            overflow: hidden;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 18px 12px;
+            background: white;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            color: #6e6e73;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .tab-button.active {
+            background: #007aff;
+            color: white;
+        }
+
+        .tab-button:hover:not(.active) {
+            background: #f8f9ff;
+            color: #007aff;
+        }
+
+        .tab-content {
+            padding: 40px;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .city-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .city-card {
+            background: #fbfbfd;
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid #e5e5e7;
+            transition: all 0.3s ease;
+        }
+
+        .city-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+            border-color: #007aff;
+        }
+
+        .city-card h3 {
+            color: #1d1d1f;
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .city-card p {
+            margin-bottom: 12px;
+            color: #6e6e73;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .city-card strong {
+            color: #1d1d1f;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .app-card {
+            background: #fbfbfd;
+            border-radius: 16px;
+            padding: 28px;
+            text-align: center;
+            border: 1px solid #e5e5e7;
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+
+        .app-card h4 {
+            color: #1d1d1f;
+            margin-bottom: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .app-card p {
+            color: #6e6e73;
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .app-link {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #007aff;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .app-link:hover {
+            background: #0056cc;
+            transform: translateY(-1px);
+        }
+
+        .visa-status {
+            background: linear-gradient(135deg, #e8f5e8, #f0fff0);
+            border: 2px solid #34c759;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 24px 0;
+        }
+
+        .visa-status.visa-required {
+            background: linear-gradient(135deg, #ffe8e8, #fff0f0);
+            border-color: #ff3b30;
+        }
+
+        .visa-status h4 {
+            color: #1d1d1f;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .faq-item {
+            margin-bottom: 2px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e5e5e7;
+        }
+
+        .faq-question {
+            background: white;
+            padding: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #1d1d1f;
+            transition: all 0.2s ease;
+            font-size: 16px;
+        }
+
+        .faq-question:hover {
+            background: #f8f9ff;
+            color: #007aff;
+        }
+
+        .faq-answer {
+            padding: 20px;
+            display: none;
+            border-top: 1px solid #f2f2f2;
+            background: #fbfbfd;
+            color: #6e6e73;
+            line-height: 1.6;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .itinerary-section {
+            background: #fbfbfd;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+            display: none;
+            border: 1px solid #e5e5e7;
+        }
+
+        .itinerary-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .itinerary-header h3 {
+            color: #1d1d1f;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .download-btn {
+            padding: 12px 20px;
+            background: #34c759;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .download-btn:hover {
+            background: #28a745;
+            transform: translateY(-1px);
+        }
+
+        .download-btn:active {
+            transform: translateY(0);
+        }
+
+        .day-item {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #e5e5e7;
+        }
+
+        .day-header {
+            color: #007aff;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #007aff;
+        }
+
+        .activity-time {
+            display: flex;
+            margin-bottom: 16px;
+            padding: 16px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            border-left: 4px solid #007aff;
+        }
+
+        .time {
+            font-weight: 700;
+            color: #007aff;
+            width: 80px;
+            flex-shrink: 0;
+            font-size: 15px;
+        }
+
+        .activity {
+            flex: 1;
+        }
+
+        .activity strong {
+            color: #1d1d1f;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .activity em {
+            color: #6e6e73;
+            font-size: 14px;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #fff8e1, #fffacd);
+            border: 1px solid #ffb84d;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            color: #8b5a00;
+        }
+
+        .warning strong {
+            color: #8b5a00;
+        }
+
+        .destination-info {
+            font-size: 14px;
+            color: #6e6e73;
+            font-style: italic;
+            margin-left: 8px;
+        }
+
+        .route-info {
+            background: linear-gradient(135deg, #e3f2fd, #f0f8ff);
+            border-left: 4px solid #007aff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 12px 12px 0;
+            font-size: 15px;
+        }
+
+        .route-info strong {
+            color: #1d1d1f;
+        }
+
+        /* Accent colors for visual interest */
+        .accent-red { color: #ff3b30; }
+        .accent-green { color: #34c759; }
+        .accent-orange { color: #ff9500; }
+        .accent-purple { color: #af52de; }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced Responsive Design */
+        
+        /* Large Desktop */
+        @media (min-width: 1440px) {
+            .container {
+                padding: 60px 40px;
+            }
+            
+            .header h1 {
+                font-size: 4.5rem;
+            }
+            
+            .header p {
+                font-size: 1.6rem;
+            }
+            
+            .main-content {
+                gap: 60px;
+            }
+            
+            .city-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+                gap: 32px;
+            }
+            
+            .app-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                gap: 32px;
+            }
+        }
+
+        /* Standard Desktop */
+        @media (min-width: 1024px) and (max-width: 1439px) {
+            .container {
+                padding: 50px 30px;
+            }
+            
+            .header h1 {
+                font-size: 3.8rem;
+            }
+            
+            .city-grid {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+            
+            .app-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
+        /* Tablet Landscape */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .container {
+                padding: 40px 24px;
+            }
+            
+            .header h1 {
+                font-size: 3.2rem;
+            }
+            
+            .header p {
+                font-size: 1.3rem;
+            }
+            
+            .main-content {
+                gap: 30px;
+            }
+            
+            .calculator-section, .results-section {
+                padding: 32px;
+            }
+            
+            .tab-content {
+                padding: 32px;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .city-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+            }
+            
+            .app-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                max-height: 200px;
+            }
+            
+            .budget-totals {
+                gap: 16px;
+            }
+            
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                min-width: 120px;
+            }
+        }
+
+        /* Tablet Portrait and Small Tablet */
+        @media (min-width: 600px) and (max-width: 767px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .header {
+                margin-bottom: 40px;
+            }
+            
+            .header h1 {
+                font-size: 2.8rem;
+            }
+            
+            .header p {
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                margin-bottom: 40px;
+            }
+            
+            .calculator-section, .results-section {
+                padding: 28px;
+            }
+            
+            .tab-content {
+                padding: 28px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .city-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .app-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+                max-height: 180px;
+                padding: 16px;
+            }
+            
+            .budget-totals {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                flex: 1 1 50%;
+                min-width: 140px;
+                padding: 16px 8px;
+                font-size: 14px;
+            }
+            
+            .itinerary-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: stretch;
+            }
+            
+            .download-btn {
+                justify-content: center;
+            }
+        }
+
+        /* Mobile Landscape */
+        @media (min-width: 480px) and (max-width: 599px) {
+            .container {
+                padding: 24px 16px;
+            }
+            
+            .header {
+                margin-bottom: 32px;
+            }
+            
+            .header h1 {
+                font-size: 2.4rem;
+                line-height: 1.1;
+            }
+            
+            .header .flag {
+                font-size: 3rem;
+                margin-right: 12px;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-bottom: 32px;
+            }
+            
+            .calculator-section, .results-section {
+                padding: 24px;
+                border-radius: 16px;
+            }
+            
+            .tab-content {
+                padding: 24px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 24px;
+            }
+            
+            .form-group {
+                margin-bottom: 20px;
+            }
+            
+            .form-group input,
+            .form-group select {
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            .btn-calculate {
+                padding: 16px;
+                font-size: 16px;
+            }
+            
+            .city-grid, .app-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .city-card, .app-card {
+                padding: 20px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+                max-height: 160px;
+                padding: 16px;
+            }
+            
+            .checkbox-item {
+                padding: 10px;
+            }
+            
+            .budget-totals {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .budget-total-item {
+                padding: 20px;
+            }
+            
+            .budget-total-item .amount {
+                font-size: 1.6rem;
+            }
+            
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                flex: 1 1 50%;
+                min-width: 120px;
+                padding: 14px 8px;
+                font-size: 13px;
+            }
+            
+            .activity-time {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .time {
+                width: auto;
+                margin-bottom: 4px;
+            }
+            
+            .day-item {
+                padding: 20px;
+            }
+            
+            .itinerary-header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+            
+            .itinerary-header h3 {
+                font-size: 1.3rem;
+            }
+            
+            .download-btn {
+                justify-content: center;
+                padding: 14px 16px;
+            }
+        }
+
+        /* Mobile Portrait */
+        @media (max-width: 479px) {
+            .container {
+                padding: 20px 12px;
+            }
+            
+            .header {
+                margin-bottom: 28px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+                line-height: 1.1;
+            }
+            
+            .header .flag {
+                font-size: 2.5rem;
+                margin-right: 8px;
+            }
+            
+            .header p {
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-bottom: 28px;
+            }
+            
+            .calculator-section, .results-section {
+                padding: 20px;
+                border-radius: 14px;
+            }
+            
+            .tab-content {
+                padding: 20px;
+            }
+            
+            .tabs {
+                border-radius: 14px;
+                margin-top: 40px;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+                margin-bottom: 20px;
+            }
+            
+            .form-group {
+                margin-bottom: 18px;
+            }
+            
+            .form-group label {
+                font-size: 0.95rem;
+                margin-bottom: 6px;
+            }
+            
+            .form-group input,
+            .form-group select {
+                padding: 12px;
+                font-size: 16px;
+                border-radius: 10px;
+            }
+            
+            .btn-calculate {
+                padding: 14px;
+                font-size: 16px;
+                border-radius: 10px;
+            }
+            
+            .city-grid, .app-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                margin-top: 20px;
+            }
+            
+            .city-card, .app-card {
+                padding: 18px;
+                border-radius: 14px;
+            }
+            
+            .city-card h3, .app-card h4 {
+                font-size: 1.1rem;
+                margin-bottom: 12px;
+            }
+            
+            .city-card p, .app-card p {
+                font-size: 14px;
+                margin-bottom: 10px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+                max-height: 140px;
+                padding: 12px;
+            }
+            
+            .checkbox-item {
+                padding: 8px;
+                font-size: 14px;
+            }
+            
+            .destination-info {
+                font-size: 12px;
+            }
+            
+            .budget-breakdown {
+                margin-top: 24px;
+            }
+            
+            .budget-item {
+                padding: 12px 0;
+                font-size: 15px;
+            }
+            
+            .budget-summary {
+                padding: 20px;
+                margin-top: 24px;
+            }
+            
+            .budget-summary h4 {
+                font-size: 1.3rem;
+                margin-bottom: 16px;
+            }
+            
+            .budget-totals {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .budget-total-item {
+                padding: 18px;
+            }
+            
+            .budget-total-item .amount {
+                font-size: 1.5rem;
+            }
+            
+            .budget-total-item .label {
+                font-size: 14px;
+            }
+            
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                flex: 1 1 50%;
+                min-width: 100px;
+                padding: 12px 6px;
+                font-size: 12px;
+            }
+            
+            .visa-status {
+                padding: 16px;
+                margin: 16px 0;
+            }
+            
+            .visa-status h4 {
+                font-size: 1.1rem;
+            }
+            
+            .visa-status ul {
+                font-size: 14px;
+            }
+            
+            .faq-question {
+                padding: 16px;
+                font-size: 15px;
+            }
+            
+            .faq-answer {
+                padding: 16px;
+                font-size: 14px;
+            }
+            
+            .activity-time {
+                flex-direction: column;
+                gap: 6px;
+                padding: 12px;
+            }
+            
+            .time {
+                width: auto;
+                margin-bottom: 2px;
+                font-size: 14px;
+            }
+            
+            .activity strong {
+                font-size: 15px;
+            }
+            
+            .activity em {
+                font-size: 13px;
+            }
+            
+            .day-item {
+                padding: 16px;
+            }
+            
+            .day-header {
+                font-size: 1.2rem;
+                margin-bottom: 16px;
+            }
+            
+            .itinerary-section {
+                padding: 20px;
+            }
+            
+            .itinerary-header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+                margin-bottom: 20px;
+            }
+            
+            .itinerary-header h3 {
+                font-size: 1.2rem;
+            }
+            
+            .download-btn {
+                justify-content: center;
+                padding: 12px 16px;
+                font-size: 14px;
+            }
+            
+            .route-info {
+                padding: 16px;
+                font-size: 14px;
+                margin: 16px 0;
+            }
+            
+            .warning {
+                padding: 16px;
+                margin: 16px 0;
+                font-size: 14px;
+            }
+            
+            .app-link {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+        /* Very Small Mobile (iPhone SE, etc.) */
+        @media (max-width: 375px) {
+            .container {
+                padding: 16px 8px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header .flag {
+                font-size: 2.2rem;
+            }
+            
+            .calculator-section, .results-section {
+                padding: 16px;
+            }
+            
+            .tab-content {
+                padding: 16px;
+            }
+            
+            .city-card, .app-card {
+                padding: 16px;
+            }
+            
+            .checkbox-group {
+                padding: 10px;
+                max-height: 120px;
+            }
+            
+            .checkbox-item {
+                padding: 6px;
+                font-size: 13px;
+            }
+            
+            .tab-button {
+                padding: 10px 4px;
+                font-size: 11px;
+                min-width: 80px;
+            }
+            
+            .form-group input,
+            .form-group select {
+                padding: 10px;
+            }
+            
+            .btn-calculate {
+                padding: 12px;
+            }
+            
+            .budget-total-item {
+                padding: 16px;
+            }
+            
+            .budget-total-item .amount {
+                font-size: 1.3rem;
+            }
+            
+            .day-item {
+                padding: 14px;
+            }
+            
+            .activity-time {
+                padding: 10px;
+            }
+        }
+
+        /* Landscape mode adjustments */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                margin-bottom: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                margin-bottom: 20px;
+            }
+            
+            .tabs {
+                margin-top: 20px;
+            }
+            
+            .checkbox-group {
+                max-height: 120px;
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-calculate,
+            .download-btn,
+            .app-link,
+            .tab-button {
+                min-height: 44px;
+            }
+            
+            .checkbox-item {
+                min-height: 44px;
+            }
+            
+            .faq-question {
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+            }
+            
+            .form-group input,
+            .form-group select {
+                min-height: 44px;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .tabs,
+            .calculator-section,
+            .btn-calculate,
+            .download-btn {
+                display: none;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .results-section {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            
+            .itinerary-section {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><span class="flag">🇨🇳</span>China Travel Calculator</h1>
+            <p>Plan your perfect China adventure with accurate budget estimates and comprehensive travel guide</p>
+        </div>
+
+        <div class="main-content">
+            <div class="calculator-section">
+                <h2 class="section-title">Trip Calculator</h2>
+                
+                <div class="form-group">
+                    <label for="departure-country">Departure Country:</label>
+                    <select id="departure-country">
+                        <option value="us">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="ca">Canada</option>
+                        <option value="au">Australia</option>
+                        <option value="de">Germany</option>
+                        <option value="fr">France</option>
+                        <option value="jp">Japan</option>
+                        <option value="kr">South Korea</option>
+                        <option value="sg">Singapore</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="trip-purpose">Trip Purpose:</label>
+                    <select id="trip-purpose">
+                        <option value="cultural">Cultural & Historical</option>
+                        <option value="scenery">Natural Scenery</option>
+                        <option value="mixed">Mixed (Culture + Nature)</option>
+                        <option value="business">Business</option>
+                        <option value="family">Family Visit</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="travel-pace">Travel Pace:</label>
+                    <select id="travel-pace">
+                        <option value="relaxed">Relaxed (More time per destination)</option>
+                        <option value="moderate">Moderate (Balanced exploration)</option>
+                        <option value="intensive">Intensive (See more in less time)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="group-size">Number of Travelers:</label>
+                    <input type="number" id="group-size" min="1" max="20" value="2">
+                </div>
+
+                <div class="form-group">
+                    <label for="duration">Length of Stay:</label>
+                    <select id="duration">
+                        <option value="3-5">3-5 days (Quick highlights)</option>
+                        <option value="7-10" selected>7-10 days (Balanced exploration)</option>
+                        <option value="11-14">11-14 days (Comprehensive tour)</option>
+                        <option value="15-21">15-21 days (Extended journey)</option>
+                        <option value="22-30">22-30 days (Deep exploration)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="accommodation-level">Accommodation Level:</label>
+                    <select id="accommodation-level">
+                        <option value="budget">Budget (Hostels, 2-3★ hotels)</option>
+                        <option value="mid-range">Mid-range (3-4★ hotels)</option>
+                        <option value="luxury">Luxury (4-5★ hotels)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="food-level">Food Preferences:</label>
+                    <select id="food-level">
+                        <option value="street">Street Food & Fast Food (McDonald's, KFC)</option>
+                        <option value="local">Local Restaurants & Casual Dining</option>
+                        <option value="mid-range">Mid-range Restaurants</option>
+                        <option value="fine-dining">Fine Dining & High-end Restaurants</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="local-transport">Local Transportation Preference:</label>
+                    <select id="local-transport">
+                        <option value="public">Public Transport (Metro, Buses)</option>
+                        <option value="mixed">Mixed (Public + Occasional Taxis)</option>
+                        <option value="taxi">Frequent Taxi/Didi Usage</option>
+                        <option value="private">Private Driver/Car Service</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="shopping-level">Shopping & Souvenirs:</label>
+                    <select id="shopping-level">
+                        <option value="minimal">Minimal ($50-100)</option>
+                        <option value="moderate">Moderate ($200-400)</option>
+                        <option value="heavy">Heavy Shopping ($500+)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Must-Visit Destinations (select what interests you):</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="great-wall" value="great-wall">
+                            <label for="great-wall">Great Wall of China <span class="destination-info">(Beijing)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="forbidden-city" value="forbidden-city">
+                            <label for="forbidden-city">Forbidden City <span class="destination-info">(Beijing)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="terracotta-army" value="terracotta-army">
+                            <label for="terracotta-army">Terracotta Army <span class="destination-info">(Xi'an)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="giant-pandas" value="giant-pandas">
+                            <label for="giant-pandas">Giant Pandas <span class="destination-info">(Chengdu)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="shanghai-bund" value="shanghai-bund">
+                            <label for="shanghai-bund">The Bund <span class="destination-info">(Shanghai)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="li-river" value="li-river">
+                            <label for="li-river">Li River Scenery <span class="destination-info">(Guilin)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="west-lake" value="west-lake">
+                            <label for="west-lake">West Lake <span class="destination-info">(Hangzhou)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="zhangjiajie" value="zhangjiajie">
+                            <label for="zhangjiajie">Avatar Mountains <span class="destination-info">(Zhangjiajie)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="potala-palace" value="potala-palace">
+                            <label for="potala-palace">Potala Palace <span class="destination-info">(Lhasa, Tibet)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="suzhou-gardens" value="suzhou-gardens">
+                            <label for="suzhou-gardens">Classical Gardens <span class="destination-info">(Suzhou)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="huangshan" value="huangshan">
+                            <label for="huangshan">Yellow Mountains <span class="destination-info">(Huangshan)</span></label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="silk-road" value="silk-road">
+                            <label for="silk-road">Silk Road <span class="destination-info">(Dunhuang/Urumqi)</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="travel-month">Preferred Travel Month:</label>
+                    <select id="travel-month">
+                        <option value="jan">January (Winter, Fewer crowds)</option>
+                        <option value="feb">February (Chinese New Year)</option>
+                        <option value="mar">March (Spring, Good weather)</option>
+                        <option value="apr">April (Peak spring)</option>
+                        <option value="may">May (Golden Week, Busy)</option>
+                        <option value="jun">June (Early summer)</option>
+                        <option value="jul">July (Hot, Peak season)</option>
+                        <option value="aug">August (Hot, Peak season)</option>
+                        <option value="sep">September (Excellent weather)</option>
+                        <option value="oct">October (Golden Week, Busy)</option>
+                        <option value="nov">November (Great weather)</option>
+                        <option value="dec">December (Winter, Low season)</option>
+                    </select>
+                </div>
+
+                <button class="btn-calculate" onclick="calculateBudget()">Calculate My Trip Budget</button>
+
+                <div class="budget-breakdown" id="budget-breakdown">
+                    <h3>Your Trip Budget Breakdown</h3>
+                    <div class="budget-item">
+                        <span>International Flights:</span>
+                        <span id="flight-cost">$0</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Domestic Transportation:</span>
+                        <span id="domestic-transport-cost">$0</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Accommodation:</span>
+                        <span id="accommodation-cost">$0</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Food & Dining:</span>
+                        <span id="food-cost">$0</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Local Transportation:</span>
+                        <span id="local-transport-cost">$0</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Activities & Attractions:</span>
+                        <span id="activities-cost">$0</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Shopping & Souvenirs:</span>
+                        <span id="shopping-cost">$0</span>
+                    </div>
+                    <div class="budget-item">
+                        <span>Visa & Insurance:</span>
+                        <span id="visa-cost">$0</span>
+                    </div>
+                    
+                    <div class="budget-summary">
+                        <h4>💰 Total Budget Summary</h4>
+                        <div class="budget-totals">
+                            <div class="budget-total-item">
+                                <div class="amount" id="per-person-total">$0</div>
+                                <div class="label">Per Person</div>
+                            </div>
+                            <div class="budget-total-item">
+                                <div class="amount" id="total-all">$0</div>
+                                <div class="label">Total for All Travelers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h2 class="section-title">Visa Information</h2>
+                <div id="visa-info">
+                    <p>Select your departure country to see visa requirements...</p>
+                </div>
+
+                <div class="warning">
+                    <strong>⚠️ Important:</strong> Always check the latest visa requirements with Chinese consulates, as policies can change. As of 2025, many countries enjoy visa-free access for tourism.
+                </div>
+
+                <div class="itinerary-section" id="itinerary-section">
+                    <div class="itinerary-header">
+                        <h3>Detailed Itinerary</h3>
+                        <button class="download-btn" onclick="downloadItinerary()">
+                            <span>📄</span>
+                            Download PDF
+                        </button>
+                    </div>
+                    <div id="itinerary-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="openTab(event, 'cities-tab')">Cities & Attractions</button>
+                <button class="tab-button" onclick="openTab(event, 'apps-tab')">Essential Apps</button>
+                <button class="tab-button" onclick="openTab(event, 'cuisine-tab')">Local Cuisine</button>
+                <button class="tab-button" onclick="openTab(event, 'transport-tab')">Transportation</button>
+                <button class="tab-button" onclick="openTab(event, 'tips-tab')">Travel Tips</button>
+                <button class="tab-button" onclick="openTab(event, 'faq-tab')">FAQ</button>
+            </div>
+
+            <div id="cities-tab" class="tab-content active">
+                <h3>Top Cities & Must-Visit Attractions</h3>
+                <div class="city-grid">
+                    <div class="city-card">
+                        <h3>🏛️ Beijing (北京)</h3>
+                        <p><strong>Must-see:</strong> Great Wall (Mutianyu/Badaling), Forbidden City, Temple of Heaven, Summer Palace</p>
+                        <p><strong>Hotels:</strong> Peninsula Beijing, Aman Summer Palace, Beijing Hotel</p>
+                        <p><strong>Food:</strong> Peking Duck (Quanjude), Zhajiangmian, Lamb Hot Pot</p>
+                        <p><strong>Budget:</strong> $80-250/day per person</p>
+                    </div>
+                    <div class="city-card">
+                        <h3>🌃 Shanghai (上海)</h3>
+                        <p><strong>Must-see:</strong> The Bund, Yu Garden, Oriental Pearl Tower, Zhujiajiao Water Town</p>
+                        <p><strong>Hotels:</strong> The Ritz-Carlton Shanghai, Park Hyatt Shanghai, Fairmont Peace Hotel</p>
+                        <p><strong>Food:</strong> Xiaolongbao, Hairy Crab, Shengjianbao</p>
+                        <p><strong>Budget:</strong> $90-300/day per person</p>
+                    </div>
+                    <div class="city-card">
+                        <h3>🏺 Xi'an (西安)</h3>
+                        <p><strong>Must-see:</strong> Terracotta Army, Ancient City Wall, Big Wild Goose Pagoda, Muslim Quarter</p>
+                        <p><strong>Hotels:</strong> Sofitel Xi'an, Grand Mercure Xi'an, Hilton Xi'an</p>
+                        <p><strong>Food:</strong> Roujiamo, Yangrou Paomo, Biangbiang Noodles</p>
+                        <p><strong>Budget:</strong> $60-180/day per person</p>
+                    </div>
+                    <div class="city-card">
+                        <h3>🐼 Chengdu (成都)</h3>
+                        <p><strong>Must-see:</strong> Giant Panda Base, Jinli Ancient Street, Wuhou Shrine, Leshan Giant Buddha</p>
+                        <p><strong>Hotels:</strong> The Ritz-Carlton Chengdu, Buddha Zen Hotel, Shangri-La Chengdu</p>
+                        <p><strong>Food:</strong> Sichuan Hot Pot, Mapo Tofu, Dan Dan Noodles, Kung Pao Chicken</p>
+                        <p><strong>Budget:</strong> $50-150/day per person</p>
+                    </div>
+                    <div class="city-card">
+                        <h3>🏞️ Guilin (桂林)</h3>
+                        <p><strong>Must-see:</strong> Li River Cruise, Yangshuo, Reed Flute Cave, Longji Rice Terraces</p>
+                        <p><strong>Hotels:</strong> Shangri-La Guilin, Banyan Tree Yangshuo, Hotel Explorer</p>
+                        <p><strong>Food:</strong> Guilin Rice Noodles, Beer Fish, Stuffed Li River Snails</p>
+                        <p><strong>Budget:</strong> $45-120/day per person</p>
+                    </div>
+                    <div class="city-card">
+                        <h3>🌸 Hangzhou (杭州)</h3>
+                        <p><strong>Must-see:</strong> West Lake, Lingyin Temple, Longjing Tea Fields, Grand Canal</p>
+                        <p><strong>Hotels:</strong> Four Seasons Hangzhou, Banyan Tree Hangzhou, Hyatt Regency Hangzhou</p>
+                        <p><strong>Food:</strong> West Lake Fish, Longjing Shrimp, Dongpo Pork</p>
+                        <p><strong>Budget:</strong> $70-200/day per person</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="apps-tab" class="tab-content">
+                <h3>Essential China Travel Apps</h3>
+                <p>Download these apps BEFORE arriving in China for the best experience:</p>
+                
+                <div class="app-grid">
+                    <div class="app-card">
+                        <h4>💬 WeChat (微信)</h4>
+                        <p>All-in-one app for payments, messaging, and mini-programs. Essential for daily life in China. Set up WeChat Pay with your international card before traveling.</p>
+                        <a href="https://www.wechat.com/" target="_blank" class="app-link">Download WeChat</a>
+                    </div>
+                    <div class="app-card">
+                        <h4>💳 Alipay (支付宝)</h4>
+                        <p>Payment app widely accepted everywhere. Often more reliable than WeChat Pay for foreign cards. Includes transport features and translation tools.</p>
+                        <a href="https://global.alipay.com/" target="_blank" class="app-link">Download Alipay</a>
+                    </div>
+                    <div class="app-card">
+                        <h4>🚗 Didi (滴滴出行)</h4>
+                        <p>China's Uber - essential for taxis and rides. Available as mini-program in WeChat/Alipay or standalone app. English interface available.</p>
+                        <a href="https://www.didiglobal.com/" target="_blank" class="app-link">Download Didi</a>
+                    </div>
+                    <div class="app-card">
+                        <h4>🏨 Trip.com</h4>
+                        <p>Best platform for booking hotels, train tickets, and attractions in China. English support and international cards accepted.</p>
+                        <a href="https://www.trip.com/" target="_blank" class="app-link">Visit Trip.com</a>
+                    </div>
+                    <div class="app-card">
+                        <h4>🚇 MetroMan</h4>
+                        <p>Offline metro maps for all major Chinese cities. Essential for navigating subway systems efficiently.</p>
+                        <a href="https://play.google.com/store/apps/details?id=com.metromanchina.free" target="_blank" class="app-link">Download MetroMan</a>
+                    </div>
+                    <div class="app-card">
+                        <h4>🗺️ Baidu Maps</h4>
+                        <p>Most accurate navigation in China. Interface mostly in Chinese but very reliable for finding locations and directions.</p>
+                        <a href="https://map.baidu.com/" target="_blank" class="app-link">Visit Baidu Maps</a>
+                    </div>
+                    <div class="app-card">
+                        <h4>🍽️ Dianping (大众点评)</h4>
+                        <p>China's Yelp - find the best local restaurants, read reviews, and discover hidden gems with ratings and photos.</p>
+                        <a href="https://www.dianping.com/" target="_blank" class="app-link">Visit Dianping</a>
+                    </div>
+                    <div class="app-card">
+                        <h4>🌐 VPN Service</h4>
+                        <p>Download before arrival! Needed to access Google, Facebook, Instagram, and other blocked sites. Research current working VPNs.</p>
+                        <a href="https://www.expressvpn.com/" target="_blank" class="app-link">ExpressVPN Option</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="cuisine-tab" class="tab-content">
+                <h3>Regional Chinese Cuisine Guide</h3>
+                
+                <div class="city-grid">
+                    <div class="city-card">
+                        <h3>🦆 Beijing Cuisine</h3>
+                        <p><strong>Must-try:</strong> Peking Duck, Zhajiangmian (Fried Sauce Noodles), Beijing Hot Pot, Douzhi (Fermented Bean Drink)</p>
+                        <p><strong>Where:</strong> Quanjude (全聚德), Dadong Roast Duck, local hutong restaurants</p>
+                    </div>
+                    <div class="city-card">
+                        <h3>🥟 Shanghai Cuisine</h3>
+                        <p><strong>Must-try:</strong> Xiaolongbao (Soup Dumplings), Shengjianbao (Pan-fried Pork Buns), Hairy Crab, Sweet & Sour Fish</p>
+                        <p><strong>Where:</strong> Din Tai Fung, Xiaoyang Shengjianbao, Old Jesse</p>
+                    </div>
+                    <div class="city-card">
+                        <h3>🌶️ Sichuan Cuisine</h3>
+                        <p><strong>Must-try:</strong> Mapo Tofu, Kung Pao Chicken, Sichuan Hot Pot, Dan Dan Noodles, Fuqi Feipian</p>
+                        <p><strong>Where:</strong> Haidilao (Hot Pot), Yuzhilan (Fine Dining), local Sichuan restaurants</p>
+                    </div>
+                    <div class="city-card">
+                        <h3>🍜 Xi'an Cuisine</h3>
+                        <p><strong>Must-try:</strong> Roujiamo (Chinese Burger), Yangrou Paomo (Lamb Soup), Biangbiang Noodles, Liangpi (Cold Noodles)</p>
+                        <p><strong>Where:</strong> Muslim Quarter, Defachang Restaurant, local noodle shops</p>
+                    </div>
+                    <div class="city-card">
+                        <h3>🦐 Cantonese Cuisine</h3>
+                        <p><strong>Must-try:</strong> Dim Sum, Char Siu (BBQ Pork), Wonton Noodles, Double-skin Milk Pudding</p>
+                        <p><strong>Where:</strong> Traditional tea houses, Hong Kong-style cafés</p>
+                    </div>
+                    <div class="city-card">
+                        <h3>🍲 Regional Specialties</h3>
+                        <p><strong>Guilin:</strong> Rice Noodles, Beer Fish</p>
+                        <p><strong>Hangzhou:</strong> West Lake Fish, Longjing Shrimp</p>
+                        <p><strong>Chongqing:</strong> Spicy Hot Pot, Xiaomian</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="transport-tab" class="tab-content">
+                <h3>Transportation in China</h3>
+                
+                <div class="city-card">
+                    <h3>🚄 High-Speed Rail (最佳选择)</h3>
+                    <p><strong>Speed:</strong> Up to 350 km/h (217 mph)</p>
+                    <p><strong>Popular Routes:</strong></p>
+                    <ul>
+                        <li>Beijing-Shanghai: 4.5 hours, $120 per person</li>
+                        <li>Beijing-Xi'an: 4.5 hours, $100 per person</li>
+                        <li>Shanghai-Hangzhou: 1 hour, $25 per person</li>
+                        <li>Xi'an-Chengdu: 3 hours, $80 per person</li>
+                    </ul>
+                    <p><strong>Booking:</strong> Trip.com (English), 12306.cn (Chinese), 15-day advance booking</p>
+                    <p><strong>Classes:</strong> Second Class (comfortable), First Class (spacious), Business Class (luxury)</p>
+                </div>
+
+                <div class="city-card">
+                    <h3>✈️ Domestic Flights</h3>
+                    <p><strong>When to Use:</strong> Long distances (>1500km), Tibet, remote areas</p>
+                    <p><strong>Popular Routes:</strong></p>
+                    <ul>
+                        <li>Beijing-Lhasa: 4 hours, $400 per person</li>
+                        <li>Shanghai-Chengdu: 2.5 hours, $250 per person</li>
+                        <li>Beijing-Dunhuang: 3 hours, $280 per person</li>
+                        <li>Any city-Lhasa: Flight required (high altitude)</li>
+                    </ul>
+                    <p><strong>Booking:</strong> Trip.com, Ctrip, airline websites</p>
+                    <p><strong>Note:</strong> Some destinations like Tibet require flights due to geography</p>
+                </div>
+
+                <div class="city-card">
+                    <h3>🚇 Metro Systems</h3>
+                    <p><strong>Coverage:</strong> All major cities have extensive metro networks</p>
+                    <p><strong>Cost:</strong> $0.40-1.10 per ride</p>
+                    <p><strong>Payment:</strong> WeChat Pay, Alipay, transportation cards</p>
+                    <p><strong>Peak Hours:</strong> 7-9 AM, 5:30-7:30 PM (very crowded)</p>
+                </div>
+
+                <div class="city-card">
+                    <h3>🚗 Didi (Ride-hailing)</h3>
+                    <p><strong>Cost:</strong> Generally 10-30% cheaper than traditional taxis</p>
+                    <p><strong>Languages:</strong> English interface available</p>
+                    <p><strong>Payment:</strong> WeChat Pay, Alipay (linked to international cards)</p>
+                    <p><strong>Types:</strong> Express, Premier, Luxe options</p>
+                </div>
+            </div>
+
+            <div id="tips-tab" class="tab-content">
+                <h3>Essential China Travel Tips</h3>
+                
+                <div class="city-card">
+                    <h3>💰 Money & Payments</h3>
+                    <ul>
+                        <li>China is largely cashless - set up WeChat Pay or Alipay before arrival</li>
+                        <li>Link international credit cards (Visa, Mastercard, Amex now supported)</li>
+                        <li>Always carry some cash as backup (¥200-500)</li>
+                        <li>No tipping culture in China</li>
+                        <li>Negotiate prices at markets and street vendors</li>
+                    </ul>
+                </div>
+
+                <div class="city-card">
+                    <h3>📱 Internet & Communication</h3>
+                    <ul>
+                        <li>Download VPN before arrival (Google, Facebook, Instagram blocked)</li>
+                        <li>Get local SIM card or eSIM for better connectivity</li>
+                        <li>Download offline maps and translation apps</li>
+                        <li>Learn basic Mandarin phrases or use translation apps</li>
+                        <li>WiFi widely available in hotels, cafes, and public areas</li>
+                    </ul>
+                </div>
+
+                <div class="city-card">
+                    <h3>🏨 Accommodation</h3>
+                    <ul>
+                        <li>All hotels must register foreign guests with police</li>
+                        <li>Always carry passport - required for hotel check-in</li>
+                        <li>Book through Trip.com for best selection in China</li>
+                        <li>International hotel chains widely available in major cities</li>
+                        <li>Check reviews carefully on Chinese platforms</li>
+                    </ul>
+                </div>
+
+                <div class="city-card">
+                    <h3>🚨 Safety & Etiquette</h3>
+                    <ul>
+                        <li>China is very safe for tourists - low crime rates</li>
+                        <li>Respect local customs and avoid political discussions</li>
+                        <li>Don't point with single finger - use open hand</li>
+                        <li>Remove shoes when entering homes</li>
+                        <li>Don't stick chopsticks upright in rice bowl</li>
+                        <li>Bow slightly when meeting someone important</li>
+                    </ul>
+                </div>
+
+                <div class="city-card">
+                    <h3>🌤️ Best Travel Times</h3>
+                    <ul>
+                        <li><strong>Spring (Mar-May):</strong> Pleasant weather, blooming flowers</li>
+                        <li><strong>Fall (Sep-Nov):</strong> Best overall weather, clear skies</li>
+                        <li><strong>Summer (Jun-Aug):</strong> Hot and humid, peak season</li>
+                        <li><strong>Winter (Dec-Feb):</strong> Cold but fewer crowds, cheaper prices</li>
+                        <li><strong>Avoid:</strong> Chinese New Year (Jan/Feb), Golden Weeks (May 1, Oct 1)</li>
+                    </ul>
+                </div>
+
+                <div class="city-card">
+                    <h3>🎫 Attractions & Bookings</h3>
+                    <ul>
+                        <li>Book popular attractions in advance (Great Wall, Forbidden City)</li>
+                        <li>Many attractions require online booking through WeChat</li>
+                        <li>Carry student ID for discounts (if applicable)</li>
+                        <li>Early morning visits avoid crowds</li>
+                        <li>Entrance fees: ¥20-200 ($3-30) for most attractions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="faq-tab" class="tab-content">
+                <h3>Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Do I need a visa to visit China?
+                    </div>
+                    <div class="faq-answer">
+                        As of 2025, citizens from 43 countries (including US, UK, Australia, Germany, France, Japan) can visit China visa-free for up to 30 days for tourism. Check current visa policies as they change frequently. US citizens can apply for 10-year multiple-entry visas.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How much should I budget for China travel?
+                    </div>
+                    <div class="faq-answer">
+                        Budget travelers: $50-80/day, Mid-range: $100-200/day, Luxury: $300+/day. This includes accommodation, food, transport, and attractions. Flight costs vary significantly based on departure location ($500-1500 roundtrip).
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Is it safe to travel in China?
+                    </div>
+                    <div class="faq-answer">
+                        China is very safe for tourists with low crime rates. Exercise normal precautions, avoid political discussions, and be aware of cultural differences. Natural disasters like typhoons can occur in coastal areas during summer.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What's the best way to get around China?
+                    </div>
+                    <div class="faq-answer">
+                        High-speed rail is excellent for intercity travel (world's largest network). Use metro systems in cities (clean, cheap, efficient). Didi for taxis. Domestic flights for very long distances. Download MetroMan app for offline subway maps.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Do people speak English in China?
+                    </div>
+                    <div class="faq-answer">
+                        English proficiency varies. Major hotels, tourist areas, and international businesses have English speakers. Young people in cities often speak some English. Download translation apps (Google Translate, Pleco) and learn basic Mandarin phrases.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Can I use my credit card in China?
+                    </div>
+                    <div class="faq-answer">
+                        International cards work at hotels and major stores, but China is largely cashless using mobile payments. Set up WeChat Pay or Alipay with your international card before traveling. Many places don't accept cash anymore.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What should I download before going to China?
+                    </div>
+                    <div class="faq-answer">
+                        Essential: VPN app, WeChat, Alipay, Trip.com, Google Translate, Didi, MetroMan. Download before arrival as Google Play Store is blocked. Set up accounts and link payment methods in advance.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        When is the best time to visit China?
+                    </div>
+                    <div class="faq-answer">
+                        Spring (March-May) and Fall (September-November) offer the best weather. Avoid Chinese New Year (January/February) and Golden Weeks (May 1, October 1) due to massive crowds and higher prices.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store itinerary data for download
+        let currentItineraryData = null;
+
+        // Destination to city mapping
+        const destinationToCities = {
+            'great-wall': 'beijing',
+            'forbidden-city': 'beijing',
+            'terracotta-army': 'xian',
+            'giant-pandas': 'chengdu',
+            'shanghai-bund': 'shanghai',
+            'li-river': 'guilin',
+            'west-lake': 'hangzhou',
+            'zhangjiajie': 'zhangjiajie',
+            'potala-palace': 'lhasa',
+            'suzhou-gardens': 'suzhou',
+            'huangshan': 'huangshan',
+            'silk-road': 'dunhuang'
+        };
+
+        // City information database
+        const cityDatabase = {
+            'beijing': { name: 'Beijing', days: 3, region: 'north' },
+            'shanghai': { name: 'Shanghai', days: 3, region: 'east' },
+            'xian': { name: "Xi'an", days: 2, region: 'central' },
+            'chengdu': { name: 'Chengdu', days: 2, region: 'southwest' },
+            'guilin': { name: 'Guilin', days: 2, region: 'south' },
+            'hangzhou': { name: 'Hangzhou', days: 2, region: 'east' },
+            'zhangjiajie': { name: 'Zhangjiajie', days: 2, region: 'central' },
+            'lhasa': { name: 'Lhasa', days: 3, region: 'tibet' },
+            'suzhou': { name: 'Suzhou', days: 1, region: 'east' },
+            'huangshan': { name: 'Huangshan', days: 2, region: 'east' },
+            'dunhuang': { name: 'Dunhuang', days: 2, region: 'northwest' }
+        };
+
+        // Updated realistic transportation distances and costs
+        const cityDistances = {
+            // From Beijing
+            'beijing-shanghai': { distance: 1318, method: 'train', cost: 120, time: '4.5 hours' },
+            'beijing-xian': { distance: 1216, method: 'train', cost: 100, time: '4.5 hours' },
+            'beijing-chengdu': { distance: 1850, method: 'flight', cost: 200, time: '2.5 hours' },
+            'beijing-guilin': { distance: 2100, method: 'flight', cost: 220, time: '2.5 hours' },
+            'beijing-hangzhou': { distance: 1450, method: 'train', cost: 130, time: '5 hours' },
+            'beijing-lhasa': { distance: 3700, method: 'flight', cost: 400, time: '4 hours' },
+            'beijing-dunhuang': { distance: 2400, method: 'flight', cost: 280, time: '3 hours' },
+            
+            // From Shanghai
+            'shanghai-beijing': { distance: 1318, method: 'train', cost: 120, time: '4.5 hours' },
+            'shanghai-xian': { distance: 1500, method: 'train', cost: 140, time: '6 hours' },
+            'shanghai-chengdu': { distance: 2100, method: 'flight', cost: 250, time: '2.5 hours' },
+            'shanghai-guilin': { distance: 1500, method: 'flight', cost: 200, time: '2 hours' },
+            'shanghai-hangzhou': { distance: 165, method: 'train', cost: 25, time: '1 hour' },
+            'shanghai-suzhou': { distance: 84, method: 'train', cost: 15, time: '30 minutes' },
+            'shanghai-lhasa': { distance: 3800, method: 'flight', cost: 450, time: '5 hours' },
+            'shanghai-dunhuang': { distance: 2800, method: 'flight', cost: 320, time: '4 hours' },
+            'shanghai-zhangjiajie': { distance: 1200, method: 'flight', cost: 180, time: '2 hours' },
+            
+            // From Xi'an
+            'xian-beijing': { distance: 1216, method: 'train', cost: 100, time: '4.5 hours' },
+            'xian-shanghai': { distance: 1500, method: 'train', cost: 140, time: '6 hours' },
+            'xian-chengdu': { distance: 842, method: 'train', cost: 80, time: '3 hours' },
+            'xian-dunhuang': { distance: 1200, method: 'train', cost: 120, time: '12 hours' },
+            'xian-lhasa': { distance: 2200, method: 'flight', cost: 350, time: '3 hours' },
+            
+            // From Chengdu
+            'chengdu-beijing': { distance: 1850, method: 'flight', cost: 200, time: '2.5 hours' },
+            'chengdu-shanghai': { distance: 2100, method: 'flight', cost: 250, time: '2.5 hours' },
+            'chengdu-xian': { distance: 842, method: 'train', cost: 80, time: '3 hours' },
+            'chengdu-lhasa': { distance: 1900, method: 'flight', cost: 300, time: '2 hours' },
+            'chengdu-guilin': { distance: 1200, method: 'flight', cost: 180, time: '2 hours' },
+            
+            // From Guilin
+            'guilin-beijing': { distance: 2100, method: 'flight', cost: 220, time: '2.5 hours' },
+            'guilin-shanghai': { distance: 1500, method: 'flight', cost: 200, time: '2 hours' },
+            'guilin-chengdu': { distance: 1200, method: 'flight', cost: 180, time: '2 hours' },
+            'guilin-zhangjiajie': { distance: 423, method: 'train', cost: 60, time: '4 hours' },
+            
+            // From Hangzhou
+            'hangzhou-beijing': { distance: 1450, method: 'train', cost: 130, time: '5 hours' },
+            'hangzhou-shanghai': { distance: 165, method: 'train', cost: 25, time: '1 hour' },
+            'hangzhou-suzhou': { distance: 180, method: 'train', cost: 30, time: '1.5 hours' },
+            
+            // From Lhasa (mostly flights due to altitude)
+            'lhasa-beijing': { distance: 3700, method: 'flight', cost: 400, time: '4 hours' },
+            'lhasa-shanghai': { distance: 3800, method: 'flight', cost: 450, time: '5 hours' },
+            'lhasa-chengdu': { distance: 1900, method: 'flight', cost: 300, time: '2 hours' },
+            'lhasa-xian': { distance: 2200, method: 'flight', cost: 350, time: '3 hours' },
+            
+            // From Dunhuang
+            'dunhuang-beijing': { distance: 2400, method: 'flight', cost: 280, time: '3 hours' },
+            'dunhuang-shanghai': { distance: 2800, method: 'flight', cost: 320, time: '4 hours' },
+            'dunhuang-xian': { distance: 1200, method: 'train', cost: 120, time: '12 hours' },
+            'dunhuang-urumqi': { distance: 700, method: 'train', cost: 90, time: '8 hours' },
+            
+            // From Zhangjiajie
+            'zhangjiajie-beijing': { distance: 1200, method: 'flight', cost: 180, time: '2 hours' },
+            'zhangjiajie-shanghai': { distance: 1200, method: 'flight', cost: 180, time: '2 hours' },
+            'zhangjiajie-guilin': { distance: 423, method: 'train', cost: 60, time: '4 hours' },
+            
+            // Additional connections
+            'suzhou-hangzhou': { distance: 180, method: 'train', cost: 30, time: '1.5 hours' },
+            'huangshan-shanghai': { distance: 450, method: 'train', cost: 70, time: '4 hours' },
+            'huangshan-hangzhou': { distance: 230, method: 'train', cost: 45, time: '2.5 hours' }
+        };
+
+        // Duration range mappings
+        const durationRanges = {
+            '3-5': { min: 3, max: 5, avg: 4 },
+            '7-10': { min: 7, max: 10, avg: 8.5 },
+            '11-14': { min: 11, max: 14, avg: 12.5 },
+            '15-21': { min: 15, max: 21, avg: 18 },
+            '22-30': { min: 22, max: 30, avg: 26 }
+        };
+
+        function calculateBudget() {
+            const country = document.getElementById('departure-country').value;
+            const purpose = document.getElementById('trip-purpose').value;
+            const pace = document.getElementById('travel-pace').value;
+            const groupSize = parseInt(document.getElementById('group-size').value);
+            const durationRange = document.getElementById('duration').value;
+            const duration = durationRanges[durationRange].avg;
+            const accommodation = document.getElementById('accommodation-level').value;
+            const food = document.getElementById('food-level').value;
+            const localTransport = document.getElementById('local-transport').value;
+            const shopping = document.getElementById('shopping-level').value;
+            const month = document.getElementById('travel-month').value;
+
+            // Get selected destinations and convert to cities
+            const selectedDestinations = [];
+            const checkboxes = document.querySelectorAll('.checkbox-group input[type="checkbox"]:checked');
+            checkboxes.forEach(cb => selectedDestinations.push(cb.value));
+
+            const selectedCities = getOptimalCities(selectedDestinations, pace, Math.round(duration), purpose, month);
+
+            // Realistic flight costs based on departure country (round-trip economy)
+            const flightCosts = {
+                'us': 850,     // West Coast ~$700, East Coast ~$1000
+                'uk': 750,     // London to Beijing/Shanghai
+                'ca': 900,     // Vancouver ~$750, Toronto ~$1050
+                'au': 650,     // Sydney/Melbourne to China (closer)
+                'de': 700,     // Frankfurt/Berlin to China
+                'fr': 720,     // Paris to China
+                'jp': 350,     // Tokyo/Osaka to China (very close)
+                'kr': 280,     // Seoul to China (very close)
+                'sg': 400,     // Singapore to China
+                'other': 800   // Average estimate for other countries
+            };
+
+            // Accommodation costs per night per person
+            const accommodationCosts = {
+                'budget': 25, 'mid-range': 65, 'luxury': 180
+            };
+
+            // Food costs per day per person
+            const foodCosts = {
+                'street': 12, 'local': 25, 'mid-range': 55, 'fine-dining': 120
+            };
+
+            // Local transport costs per day per person
+            const localTransportCosts = {
+                'public': 8, 'mixed': 18, 'taxi': 35, 'private': 85
+            };
+
+            // Shopping costs total
+            const shoppingCosts = {
+                'minimal': 75, 'moderate': 300, 'heavy': 650
+            };
+
+            // Seasonal multipliers (realistic pricing based on demand)
+            const seasonMultipliers = {
+                'jan': 0.75,  // Winter low season, very cheap
+                'feb': 1.6,   // Chinese New Year, extremely expensive
+                'mar': 0.95,  // Early spring, good value
+                'apr': 1.1,   // Peak spring, pleasant weather
+                'may': 1.5,   // Golden Week (May 1-3), very busy and expensive
+                'jun': 1.15,  // Early summer, getting busier
+                'jul': 1.3,   // Peak summer, hot but popular
+                'aug': 1.3,   // Peak summer, hot and busy
+                'sep': 1.0,   // Excellent weather, shoulder season
+                'oct': 1.5,   // Golden Week (Oct 1-7), peak season
+                'nov': 0.9,   // Pleasant autumn, good value
+                'dec': 0.8    // Winter, cold but cheap
+            };
+
+            const seasonMultiplier = seasonMultipliers[month];
+
+            // Calculate domestic transportation costs
+            const domesticTransportCost = calculateDomesticTransport(selectedCities);
+
+            // Calculate costs (per person first, then multiply by group size)
+            const flightCostPerPerson = flightCosts[country];
+            const accommodationCostPerPerson = accommodationCosts[accommodation] * duration * seasonMultiplier;
+            const foodCostPerPerson = foodCosts[food] * duration;
+            const localTransportCostPerPerson = localTransportCosts[localTransport] * duration;
+            const activitiesCostPerPerson = selectedCities.length * 80 + (duration - selectedCities.length) * 30;
+            const shoppingCostPerPerson = shoppingCosts[shopping];
+            const visaCostPerPerson = getVisaCost(country);
+            const domesticTransportCostPerPerson = domesticTransportCost / groupSize;
+
+            // Total per person
+            const totalPerPerson = flightCostPerPerson + domesticTransportCostPerPerson + accommodationCostPerPerson + 
+                                 foodCostPerPerson + localTransportCostPerPerson + activitiesCostPerPerson + 
+                                 shoppingCostPerPerson + visaCostPerPerson;
+
+            // Total for all travelers
+            const totalAll = totalPerPerson * groupSize;
+
+            // Update individual cost displays (showing total costs for the group)
+            document.getElementById('flight-cost').textContent = `$${Math.round(flightCostPerPerson * groupSize)}`;
+            document.getElementById('domestic-transport-cost').textContent = `$${Math.round(domesticTransportCost)}`;
+            document.getElementById('accommodation-cost').textContent = `$${Math.round(accommodationCostPerPerson * groupSize)}`;
+            document.getElementById('food-cost').textContent = `$${Math.round(foodCostPerPerson * groupSize)}`;
+            document.getElementById('local-transport-cost').textContent = `$${Math.round(localTransportCostPerPerson * groupSize)}`;
+            document.getElementById('activities-cost').textContent = `$${Math.round(activitiesCostPerPerson * groupSize)}`;
+            document.getElementById('shopping-cost').textContent = `$${Math.round(shoppingCostPerPerson * groupSize)}`;
+            document.getElementById('visa-cost').textContent = `$${Math.round(visaCostPerPerson * groupSize)}`;
+            
+            // Update summary totals
+            document.getElementById('per-person-total').textContent = `$${Math.round(totalPerPerson)}`;
+            document.getElementById('total-all').textContent = `$${Math.round(totalAll)}`;
+
+            document.getElementById('budget-breakdown').style.display = 'block';
+
+            // Generate detailed itinerary
+            generateDetailedItinerary(selectedCities, pace, Math.round(duration), food, purpose, durationRange, selectedDestinations);
+            
+            // Update visa info
+            updateVisaInfo(country);
+        }
+
+        // Enhanced city database with detailed information
+        const enhancedCityDatabase = {
+            'beijing': { 
+                name: 'Beijing', 
+                days: 3, 
+                region: 'north',
+                purposes: ['cultural', 'mixed', 'business'],
+                attractions: ['great-wall', 'forbidden-city'],
+                type: 'historical',
+                priority: 1,
+                season_best: ['spring', 'fall'],
+                description: 'Imperial capital with Great Wall and Forbidden City'
+            },
+            'shanghai': { 
+                name: 'Shanghai', 
+                days: 3, 
+                region: 'east',
+                purposes: ['cultural', 'mixed', 'business'],
+                attractions: ['shanghai-bund'],
+                type: 'modern',
+                priority: 1,
+                season_best: ['spring', 'fall'],
+                description: 'Modern metropolis with historic Bund and futuristic skyline'
+            },
+            'xian': { 
+                name: "Xi'an", 
+                days: 2, 
+                region: 'central',
+                purposes: ['cultural', 'mixed'],
+                attractions: ['terracotta-army'],
+                type: 'historical',
+                priority: 2,
+                season_best: ['spring', 'fall'],
+                description: 'Ancient capital with Terracotta Army and Silk Road history'
+            },
+            'chengdu': { 
+                name: 'Chengdu', 
+                days: 2, 
+                region: 'southwest',
+                purposes: ['cultural', 'scenery', 'mixed'],
+                attractions: ['giant-pandas'],
+                type: 'cultural_nature',
+                priority: 2,
+                season_best: ['spring', 'fall'],
+                description: 'Panda capital with spicy Sichuan cuisine and laid-back culture'
+            },
+            'guilin': { 
+                name: 'Guilin', 
+                days: 2, 
+                region: 'south',
+                purposes: ['scenery', 'mixed'],
+                attractions: ['li-river'],
+                type: 'scenic',
+                priority: 2,
+                season_best: ['spring', 'fall'],
+                description: 'Stunning karst landscapes and Li River scenery'
+            },
+            'hangzhou': { 
+                name: 'Hangzhou', 
+                days: 2, 
+                region: 'east',
+                purposes: ['cultural', 'scenery', 'mixed'],
+                attractions: ['west-lake'],
+                type: 'scenic_cultural',
+                priority: 2,
+                season_best: ['spring', 'fall'],
+                description: 'Beautiful West Lake and traditional Chinese gardens'
+            },
+            'zhangjiajie': { 
+                name: 'Zhangjiajie', 
+                days: 2, 
+                region: 'central',
+                purposes: ['scenery', 'mixed'],
+                attractions: ['zhangjiajie'],
+                type: 'scenic',
+                priority: 3,
+                season_best: ['spring', 'fall'],
+                description: 'Avatar-inspired pillar mountains and glass bridges'
+            },
+            'lhasa': { 
+                name: 'Lhasa', 
+                days: 3, 
+                region: 'tibet',
+                purposes: ['cultural', 'scenery'],
+                attractions: ['potala-palace'],
+                type: 'cultural_spiritual',
+                priority: 4,
+                season_best: ['spring', 'summer', 'fall'],
+                description: 'Tibetan culture and Potala Palace (requires special permits)'
+            },
+            'suzhou': { 
+                name: 'Suzhou', 
+                days: 1, 
+                region: 'east',
+                purposes: ['cultural', 'mixed'],
+                attractions: ['suzhou-gardens'],
+                type: 'cultural',
+                priority: 3,
+                season_best: ['spring', 'fall'],
+                description: 'Classical Chinese gardens and water town charm'
+            },
+            'huangshan': { 
+                name: 'Huangshan', 
+                days: 2, 
+                region: 'east',
+                purposes: ['scenery', 'mixed'],
+                attractions: ['huangshan'],
+                type: 'scenic',
+                priority: 3,
+                season_best: ['spring', 'fall'],
+                description: 'Yellow Mountains with ancient pines and sea of clouds'
+            },
+            'dunhuang': { 
+                name: 'Dunhuang', 
+                days: 2, 
+                region: 'northwest',
+                purposes: ['cultural', 'scenery'],
+                attractions: ['silk-road'],
+                type: 'historical_desert',
+                priority: 4,
+                season_best: ['spring', 'fall'],
+                description: 'Silk Road oasis with Mogao Caves and desert landscapes'
+            },
+            'lijiang': {
+                name: 'Lijiang',
+                days: 2,
+                region: 'southwest',
+                purposes: ['cultural', 'scenery', 'mixed'],
+                attractions: [],
+                type: 'cultural_scenic',
+                priority: 3,
+                season_best: ['spring', 'fall'],
+                description: 'Ancient town with Naxi culture and Jade Dragon Snow Mountain'
+            },
+            'yangzhou': {
+                name: 'Yangzhou',
+                days: 1,
+                region: 'east',
+                purposes: ['cultural', 'mixed'],
+                attractions: [],
+                type: 'cultural',
+                priority: 4,
+                season_best: ['spring'],
+                description: 'Historic Grand Canal city with traditional gardens'
+            },
+            'jiuzhaigou': {
+                name: 'Jiuzhaigou',
+                days: 2,
+                region: 'southwest',
+                purposes: ['scenery'],
+                attractions: [],
+                type: 'scenic',
+                priority: 3,
+                season_best: ['fall'],
+                description: 'UNESCO World Heritage with colorful lakes and waterfalls'
+            },
+            'dali': {
+                name: 'Dali',
+                days: 2,
+                region: 'southwest',
+                purposes: ['cultural', 'scenery', 'mixed'],
+                attractions: [],
+                type: 'cultural_scenic',
+                priority: 4,
+                season_best: ['spring', 'fall'],
+                description: 'Bai minority culture and Erhai Lake scenery'
+            },
+            'huashan': {
+                name: 'Huashan',
+                days: 1,
+                region: 'central',
+                purposes: ['scenery', 'mixed'],
+                attractions: [],
+                type: 'scenic',
+                priority: 4,
+                season_best: ['spring', 'fall'],
+                description: 'Sacred mountain with dramatic clifftop hiking trails'
+            }
+        };
+
+        function getOptimalCities(selectedDestinations, pace, duration, purpose, month) {
+            // Step 1: Determine optimal number of cities based on pace and duration
+            const optimalCityCounts = {
+                'relaxed': Math.min(Math.floor(duration / 3), 5),
+                'moderate': Math.min(Math.floor(duration / 2.5), 6),
+                'intensive': Math.min(Math.floor(duration / 2), 8)
+            };
+            
+            const targetCityCount = optimalCityCounts[pace];
+            
+            // Step 2: Convert selected destinations to must-visit cities
+            const mustVisitCities = new Set();
+            selectedDestinations.forEach(dest => {
+                if (destinationToCities[dest]) {
+                    mustVisitCities.add(destinationToCities[dest]);
+                }
+            });
+
+            // Step 3: Score all cities based on user preferences
+            const cityScores = {};
+            const seasonMap = {
+                'jan': 'winter', 'feb': 'winter', 'mar': 'spring', 'apr': 'spring', 'may': 'spring',
+                'jun': 'summer', 'jul': 'summer', 'aug': 'summer', 'sep': 'fall', 'oct': 'fall', 'nov': 'fall', 'dec': 'winter'
+            };
+            const currentSeason = seasonMap[month];
+
+            Object.keys(enhancedCityDatabase).forEach(cityId => {
+                const city = enhancedCityDatabase[cityId];
+                let score = 0;
+
+                // Must-visit cities get highest priority
+                if (mustVisitCities.has(cityId)) {
+                    score += 1000;
+                }
+
+                // Purpose match scoring
+                if (city.purposes.includes(purpose)) {
+                    score += 300;
+                } else if (purpose === 'mixed') {
+                    score += 200; // Mixed purpose works with most cities
+                }
+
+                // Base priority scoring (popular destinations)
+                score += (5 - city.priority) * 100;
+
+                // Seasonal appropriateness
+                if (city.season_best.includes(currentSeason)) {
+                    score += 150;
+                }
+
+                // Duration appropriateness (avoid cities that need too many days for short trips)
+                if (duration >= city.days * 1.5) {
+                    score += 100;
+                } else if (duration < city.days) {
+                    score -= 50;
+                }
+
+                // Regional diversity bonus (avoid too many cities from same region)
+                score += Math.random() * 50; // Small randomization for variety
+
+                cityScores[cityId] = score;
+            });
+
+            // Step 4: Select top cities, ensuring logical travel routes
+            const sortedCities = Object.keys(cityScores)
+                .sort((a, b) => cityScores[b] - cityScores[a]);
+
+            let selectedCities = [];
+            let usedRegions = new Set();
+
+            // First, add all must-visit cities
+            sortedCities.forEach(cityId => {
+                if (mustVisitCities.has(cityId) && selectedCities.length < targetCityCount) {
+                    selectedCities.push(cityId);
+                    usedRegions.add(enhancedCityDatabase[cityId].region);
+                }
+            });
+
+            // Then, add recommended cities with regional diversity
+            sortedCities.forEach(cityId => {
+                if (!mustVisitCities.has(cityId) && selectedCities.length < targetCityCount) {
+                    const city = enhancedCityDatabase[cityId];
+                    
+                    // Prefer regional diversity for longer trips
+                    if (duration > 7 && usedRegions.has(city.region) && usedRegions.size < 3) {
+                        return; // Skip this city to encourage regional diversity
+                    }
+                    
+                    selectedCities.push(cityId);
+                    usedRegions.add(city.region);
+                }
+            });
+
+            // Step 5: Optimize travel route (basic geographic optimization)
+            selectedCities = optimizeTravelRoute(selectedCities);
+
+            // Step 6: Ensure minimum cities for longer trips
+            if (selectedCities.length === 0) {
+                selectedCities = ['beijing', 'shanghai']; // Default fallback
+            } else if (selectedCities.length === 1 && duration > 5) {
+                // Add a complementary city
+                const mainCity = selectedCities[0];
+                const mainRegion = enhancedCityDatabase[mainCity].region;
+                
+                const complementaryCities = sortedCities.filter(cityId => 
+                    !selectedCities.includes(cityId) && 
+                    enhancedCityDatabase[cityId].region !== mainRegion
+                ).slice(0, 1);
+                
+                selectedCities.push(...complementaryCities);
+            }
+
+            return selectedCities.slice(0, targetCityCount);
+        }
+
+        function optimizeTravelRoute(cities) {
+            if (cities.length <= 1) return cities;
+
+            // Define logical touring routes through China based on geography
+            const routeTemplates = {
+                // Classic Golden Triangle (most popular)
+                golden: ['beijing', 'xian', 'shanghai'],
+                
+                // North to South Classic
+                northSouth: ['beijing', 'xian', 'chengdu', 'guilin', 'shanghai'],
+                
+                // East China Cultural
+                eastChina: ['shanghai', 'suzhou', 'hangzhou', 'huangshan', 'beijing'],
+                
+                // Western Adventure
+                western: ['beijing', 'xian', 'chengdu', 'lhasa', 'dunhuang'],
+                
+                // Southern Nature
+                southern: ['shanghai', 'hangzhou', 'guilin', 'zhangjiajie', 'chengdu'],
+                
+                // Comprehensive Grand Tour
+                grandTour: ['beijing', 'xian', 'chengdu', 'lhasa', 'guilin', 'zhangjiajie', 'hangzhou', 'shanghai'],
+                
+                // Silk Road
+                silkRoad: ['beijing', 'xian', 'dunhuang', 'chengdu'],
+                
+                // Tibet Focus (must go through Chengdu for easier acclimatization)
+                tibet: ['shanghai', 'chengdu', 'lhasa', 'beijing']
+            };
+
+            // Find the best matching route template
+            let bestRoute = cities;
+            let bestScore = -1;
+
+            for (const [routeName, template] of Object.entries(routeTemplates)) {
+                const score = calculateRouteMatch(cities, template);
+                if (score > bestScore) {
+                    bestScore = score;
+                    bestRoute = arrangeByTemplate(cities, template);
+                }
+            }
+
+            // Ensure we start and end at international gateways when possible
+            bestRoute = optimizeGateways(bestRoute);
+
+            return bestRoute;
+        }
+
+        function calculateRouteMatch(cities, template) {
+            let score = 0;
+            let templateIndex = 0;
+            
+            // Score based on how well cities match the template order
+            for (const city of cities) {
+                const cityIndexInTemplate = template.indexOf(city);
+                if (cityIndexInTemplate !== -1) {
+                    // Bonus for cities that appear in template
+                    score += 10;
+                    
+                    // Extra bonus for cities that appear in logical order
+                    if (cityIndexInTemplate >= templateIndex) {
+                        score += 5;
+                        templateIndex = cityIndexInTemplate;
+                    }
+                }
+            }
+            
+            // Penalty for templates that are much longer than needed
+            const lengthDifference = Math.abs(template.length - cities.length);
+            score -= lengthDifference * 2;
+            
+            return score;
+        }
+
+        function arrangeByTemplate(cities, template) {
+            const arranged = [];
+            const remaining = [...cities];
+            
+            // First pass: add cities that are in the template in template order
+            for (const templateCity of template) {
+                const index = remaining.indexOf(templateCity);
+                if (index !== -1) {
+                    arranged.push(templateCity);
+                    remaining.splice(index, 1);
+                }
+            }
+            
+            // Second pass: insert remaining cities in geographically logical positions
+            for (const city of remaining) {
+                const bestPosition = findBestInsertionPoint(arranged, city);
+                arranged.splice(bestPosition, 0, city);
+            }
+            
+            return arranged;
+        }
+
+        function findBestInsertionPoint(route, newCity) {
+            if (route.length === 0) return 0;
+            
+            let bestPosition = route.length;
+            let minCost = Number.MAX_SAFE_INTEGER;
+            
+            // Try inserting at each position and calculate total additional cost
+            for (let i = 0; i <= route.length; i++) {
+                let additionalCost = 0;
+                
+                if (i === 0) {
+                    // Insert at beginning
+                    additionalCost = getRouteInfo(newCity, route[0]).cost;
+                } else if (i === route.length) {
+                    // Insert at end
+                    additionalCost = getRouteInfo(route[route.length - 1], newCity).cost;
+                } else {
+                    // Insert in middle
+                    const prevCity = route[i - 1];
+                    const nextCity = route[i];
+                    const originalCost = getRouteInfo(prevCity, nextCity).cost;
+                    const newCost = getRouteInfo(prevCity, newCity).cost + getRouteInfo(newCity, nextCity).cost;
+                    additionalCost = newCost - originalCost;
+                }
+                
+                if (additionalCost < minCost) {
+                    minCost = additionalCost;
+                    bestPosition = i;
+                }
+            }
+            
+            return bestPosition;
+        }
+
+        function optimizeGateways(cities) {
+            if (cities.length <= 1) return cities;
+            
+            const internationalGateways = ['beijing', 'shanghai'];
+            const gateways = cities.filter(city => internationalGateways.includes(city));
+            
+            if (gateways.length === 0) return cities;
+            if (gateways.length === 1) {
+                // Move the single gateway to the front
+                const gateway = gateways[0];
+                const others = cities.filter(city => city !== gateway);
+                return [gateway, ...others];
+            }
+            
+            // If we have both Beijing and Shanghai, start with one and end with the other
+            if (gateways.includes('beijing') && gateways.includes('shanghai')) {
+                const others = cities.filter(city => !internationalGateways.includes(city));
+                
+                // Decide which gateway to start with based on the route
+                // If going to western China (Xi'an, Chengdu, Tibet), start from Beijing
+                // If focusing on eastern China, start from Shanghai
+                const hasWesternCities = others.some(city => ['xian', 'chengdu', 'lhasa', 'dunhuang'].includes(city));
+                
+                if (hasWesternCities) {
+                    return ['beijing', ...others, 'shanghai'];
+                } else {
+                    return ['shanghai', ...others, 'beijing'];
+                }
+            }
+            
+            return cities;
+        }
+
+        function getRouteInfo(city1, city2) {
+            const key1 = `${city1}-${city2}`;
+            const key2 = `${city2}-${city1}`;
+            return cityDistances[key1] || cityDistances[key2] || {
+                distance: 2000, // Default fallback
+                method: 'flight',
+                cost: 250,
+                time: '2.5 hours'
+            };
+        }
+
+        function calculateDomesticTransport(cities) {
+            if (cities.length <= 1) return 0;
+
+            let totalCost = 0;
+            for (let i = 0; i < cities.length - 1; i++) {
+                const routeInfo = getRouteInfo(cities[i], cities[i + 1]);
+                totalCost += routeInfo.cost;
+            }
+
+            return totalCost * document.getElementById('group-size').value;
+        }
+
+        function getDistanceBetweenCities(city1, city2) {
+            const routeInfo = getRouteInfo(city1, city2);
+            return routeInfo.distance;
+        }
+
+        function generateDetailedItinerary(cities, pace, duration, foodLevel, purpose, durationRange, selectedDestinations) {
+            if (cities.length === 0) {
+                document.getElementById('itinerary-section').style.display = 'none';
+                return;
+            }
+
+            // Generate recommendation explanation
+            const mustVisitCities = new Set();
+            selectedDestinations.forEach(dest => {
+                if (destinationToCities[dest]) {
+                    mustVisitCities.add(destinationToCities[dest]);
+                }
+            });
+
+            let recommendationHTML = `
+                <div class="route-info">
+                    <strong>🎯 Your Personalized Itinerary</strong><br>
+                    <strong>📅 Duration:</strong> ${durationRange} days<br>
+                    <strong>🎨 Purpose:</strong> ${purpose.charAt(0).toUpperCase() + purpose.slice(1)} travel<br>
+                    <strong>⚡ Pace:</strong> ${pace.charAt(0).toUpperCase() + pace.slice(1)}<br>
+                    <strong>🏙️ Recommended Cities (${cities.length}):</strong> ${cities.map(city => enhancedCityDatabase[city]?.name || city).join(', ')}
+                </div>
+                
+                <div class="route-info">
+                    <strong>🤖 Why These Cities Were Chosen:</strong><br>
+            `;
+
+            cities.forEach((city, index) => {
+                const cityInfo = enhancedCityDatabase[city];
+                if (!cityInfo) return;
+
+                let reason = '';
+                if (mustVisitCities.has(city)) {
+                    reason = `✅ Selected by you as must-visit destination`;
+                } else {
+                    const reasons = [];
+                    if (cityInfo.purposes.includes(purpose)) {
+                        reasons.push(`perfect for ${purpose} travel`);
+                    }
+                    if (cityInfo.priority <= 2) {
+                        reasons.push('top-rated destination');
+                    }
+                    if (cityInfo.type.includes('scenic') && purpose === 'scenery') {
+                        reasons.push('stunning natural beauty');
+                    }
+                    if (cityInfo.type.includes('cultural') && purpose === 'cultural') {
+                        reasons.push('rich cultural heritage');
+                    }
+                    reason = `🎯 Recommended: ${reasons.join(', ') || 'great fit for your preferences'}`;
+                }
+
+                recommendationHTML += `
+                    <strong>${index + 1}. ${cityInfo.name}:</strong> ${reason}<br>
+                    <em style="color: #666; font-size: 0.9em;">   ${cityInfo.description}</em><br>
+                `;
+            });
+
+            recommendationHTML += `
+                </div>
+            `;
+
+            let itineraryHTML = recommendationHTML;
+
+            // Detailed city information with activities
+            const cityDetails = {
+                'beijing': {
+                    name: 'Beijing',
+                    activities: [
+                        {
+                            morning: { time: '09:00', activity: 'Arrive in Beijing, check into hotel', location: 'Hotel' },
+                            afternoon: { time: '14:00', activity: 'Explore Tiananmen Square & Forbidden City', location: 'Tiananmen Square' },
+                            evening: { time: '19:00', activity: 'Peking Duck dinner at Quanjude', location: 'Quanjude Restaurant' }
+                        },
+                        {
+                            morning: { time: '08:00', activity: 'Great Wall of China (Mutianyu section)', location: 'Mutianyu Great Wall' },
+                            afternoon: { time: '14:00', activity: 'Continue Great Wall exploration & cable car', location: 'Mutianyu Great Wall' },
+                            evening: { time: '19:00', activity: 'Traditional hutong dinner & bar street', location: 'Nanluoguxiang' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Temple of Heaven & morning exercises with locals', location: 'Temple of Heaven' },
+                            afternoon: { time: '14:00', activity: 'Summer Palace & boat ride on Kunming Lake', location: 'Summer Palace' },
+                            evening: { time: '19:00', activity: 'Beijing Opera show & local snacks', location: 'Liyuan Theatre' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Lama Temple (Yonghe Temple) visit', location: 'Lama Temple' },
+                            afternoon: { time: '14:00', activity: 'Explore Beihai Park & White Pagoda', location: 'Beihai Park' },
+                            evening: { time: '19:00', activity: 'Shopping at Wangfujing Street', location: 'Wangfujing' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Visit 798 Art District', location: '798 Art Zone' },
+                            afternoon: { time: '14:00', activity: 'Explore National Museum of China', location: 'National Museum' },
+                            evening: { time: '19:00', activity: 'Farewell dinner in Beijing', location: 'Local Restaurant' }
+                        }
+                    ]
+                },
+                'shanghai': {
+                    name: 'Shanghai',
+                    activities: [
+                        {
+                            morning: { time: '10:00', activity: 'Arrive in Shanghai, check into hotel', location: 'Hotel' },
+                            afternoon: { time: '15:00', activity: 'The Bund waterfront walk & colonial architecture', location: 'The Bund' },
+                            evening: { time: '19:00', activity: 'Xiaolongbao dinner at Din Tai Fung & Bund night views', location: 'Nanjing Road' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Yu Garden & traditional Chinese architecture', location: 'Yu Garden' },
+                            afternoon: { time: '14:00', activity: 'Shanghai Museum & People\'s Square', location: 'People\'s Square' },
+                            evening: { time: '19:00', activity: 'Rooftop bar with skyline views', location: 'Pudong' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Day trip to Zhujiajiao Water Town', location: 'Zhujiajiao' },
+                            afternoon: { time: '14:00', activity: 'Boat ride through ancient canals', location: 'Zhujiajiao' },
+                            evening: { time: '19:00', activity: 'Return to Shanghai, farewell dinner', location: 'French Concession' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Explore French Concession area', location: 'French Concession' },
+                            afternoon: { time: '14:00', activity: 'Visit Shanghai Tower observation deck', location: 'Shanghai Tower' },
+                            evening: { time: '19:00', activity: 'Acrobatics show at Shanghai Circus World', location: 'Shanghai Circus World' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Shopping at Nanjing Road', location: 'Nanjing Road' },
+                            afternoon: { time: '14:00', activity: 'Jade Buddha Temple visit', location: 'Jade Buddha Temple' },
+                            evening: { time: '19:00', activity: 'Evening cruise on Huangpu River', location: 'Huangpu River' }
+                        }
+                    ]
+                },
+                'xian': {
+                    name: "Xi'an",
+                    activities: [
+                        {
+                            morning: { time: '10:00', activity: 'Arrive in Xi\'an, check into hotel', location: 'Hotel' },
+                            afternoon: { time: '15:00', activity: 'Ancient City Wall bike ride', location: 'Xi\'an City Wall' },
+                            evening: { time: '19:00', activity: 'Muslim Quarter food tour & local snacks', location: 'Muslim Quarter' }
+                        },
+                        {
+                            morning: { time: '08:00', activity: 'Terracotta Army Museum (full day)', location: 'Terracotta Army Museum' },
+                            afternoon: { time: '14:00', activity: 'Continue exploring Terracotta Warriors & Bronze Chariot', location: 'Terracotta Army Museum' },
+                            evening: { time: '19:00', activity: 'Tang Dynasty dinner show', location: 'Tang Dynasty Palace' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Big Wild Goose Pagoda', location: 'Big Wild Goose Pagoda' },
+                            afternoon: { time: '14:00', activity: 'Shaanxi History Museum', location: 'Shaanxi History Museum' },
+                            evening: { time: '19:00', activity: 'Local noodle dinner experience', location: 'Local Restaurant' }
+                        }
+                    ]
+                },
+                'chengdu': {
+                    name: 'Chengdu',
+                    activities: [
+                        {
+                            morning: { time: '10:00', activity: 'Arrive in Chengdu, check into hotel', location: 'Hotel' },
+                            afternoon: { time: '14:00', activity: 'Giant Panda Research Base', location: 'Chengdu Panda Base' },
+                            evening: { time: '19:00', activity: 'Authentic Sichuan hot pot dinner', location: 'Kuanzhai Alley' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Jinli Ancient Street & traditional crafts', location: 'Jinli Street' },
+                            afternoon: { time: '14:00', activity: 'Wuhou Shrine & local tea house', location: 'Wuhou Shrine' },
+                            evening: { time: '19:00', activity: 'Sichuan Opera with face-changing show', location: 'Shu Feng Ya Yun Theatre' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Day trip to Leshan Giant Buddha', location: 'Leshan' },
+                            afternoon: { time: '14:00', activity: 'Continue exploring Leshan area', location: 'Leshan' },
+                            evening: { time: '19:00', activity: 'Return to Chengdu, local cuisine dinner', location: 'Chengdu' }
+                        }
+                    ]
+                },
+                'guilin': {
+                    name: 'Guilin',
+                    activities: [
+                        {
+                            morning: { time: '09:00', activity: 'Arrive in Guilin, check into hotel', location: 'Hotel' },
+                            afternoon: { time: '14:00', activity: 'Reed Flute Cave & Elephant Trunk Hill', location: 'Reed Flute Cave' },
+                            evening: { time: '19:00', activity: 'Guilin rice noodles & night river cruise', location: 'Li River' }
+                        },
+                        {
+                            morning: { time: '08:00', activity: 'Li River cruise to Yangshuo', location: 'Li River' },
+                            afternoon: { time: '14:00', activity: 'Yangshuo countryside bike tour', location: 'Yangshuo' },
+                            evening: { time: '19:00', activity: 'West Street dinner & local entertainment', location: 'Yangshuo West Street' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Longji Rice Terraces day trip', location: 'Longji' },
+                            afternoon: { time: '14:00', activity: 'Explore terraced landscapes', location: 'Longji' },
+                            evening: { time: '19:00', activity: 'Return to Guilin, local dinner', location: 'Guilin' }
+                        }
+                    ]
+                },
+                'hangzhou': {
+                    name: 'Hangzhou',
+                    activities: [
+                        {
+                            morning: { time: '09:00', activity: 'Arrive in Hangzhou, check into hotel', location: 'Hotel' },
+                            afternoon: { time: '14:00', activity: 'West Lake boat cruise & Leifeng Pagoda', location: 'West Lake' },
+                            evening: { time: '19:00', activity: 'Lakeside dinner with West Lake fish specialty', location: 'West Lake Restaurant' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Lingyin Temple & Buddhist culture', location: 'Lingyin Temple' },
+                            afternoon: { time: '14:00', activity: 'Longjing Tea Plantation visit & tea tasting', location: 'Longjing Village' },
+                            evening: { time: '19:00', activity: 'Grand Canal evening walk', location: 'Grand Canal' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Xixi National Wetland Park', location: 'Xixi Wetland' },
+                            afternoon: { time: '14:00', activity: 'Six Harmonies Pagoda visit', location: 'Six Harmonies Pagoda' },
+                            evening: { time: '19:00', activity: 'Traditional Hangzhou cuisine dinner', location: 'Local Restaurant' }
+                        }
+                    ]
+                },
+                'zhangjiajie': {
+                    name: 'Zhangjiajie',
+                    activities: [
+                        {
+                            morning: { time: '09:00', activity: 'Arrive in Zhangjiajie, check into hotel', location: 'Hotel' },
+                            afternoon: { time: '14:00', activity: 'Zhangjiajie National Forest Park', location: 'Avatar Pillar Mountains' },
+                            evening: { time: '19:00', activity: 'Local Hunan cuisine dinner', location: 'Local Restaurant' }
+                        },
+                        {
+                            morning: { time: '08:00', activity: 'Glass Bridge at Zhangjiajie Grand Canyon', location: 'Grand Canyon Glass Bridge' },
+                            afternoon: { time: '14:00', activity: 'Tianmen Mountain & cable car', location: 'Tianmen Mountain' },
+                            evening: { time: '19:00', activity: 'Traditional folk performance', location: 'Local Theatre' }
+                        }
+                    ]
+                },
+                'dunhuang': {
+                    name: 'Dunhuang',
+                    activities: [
+                        {
+                            morning: { time: '09:00', activity: 'Arrive in Dunhuang, check into hotel', location: 'Hotel' },
+                            afternoon: { time: '14:00', activity: 'Mogao Caves (Thousand Buddha Caves)', location: 'Mogao Grottoes' },
+                            evening: { time: '19:00', activity: 'Silk Road cuisine dinner', location: 'Local Restaurant' }
+                        },
+                        {
+                            morning: { time: '08:00', activity: 'Mingsha Mountain & Crescent Lake', location: 'Singing Sand Dunes' },
+                            afternoon: { time: '14:00', activity: 'Camel riding experience in the desert', location: 'Mingsha Mountain' },
+                            evening: { time: '19:00', activity: 'Desert sunset viewing & BBQ dinner', location: 'Desert Camp' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Yumen Pass & Han Dynasty Great Wall ruins', location: 'Yumen Pass' },
+                            afternoon: { time: '14:00', activity: 'Yadan National Geological Park', location: 'Ghost City' },
+                            evening: { time: '19:00', activity: 'Farewell dinner with local specialties', location: 'Dunhuang' }
+                        }
+                    ]
+                },
+                'lhasa': {
+                    name: 'Lhasa',
+                    activities: [
+                        {
+                            morning: { time: '10:00', activity: 'Arrive in Lhasa, acclimatization rest', location: 'Hotel' },
+                            afternoon: { time: '15:00', activity: 'Light walk around Barkhor Street', location: 'Barkhor Street' },
+                            evening: { time: '19:00', activity: 'Traditional Tibetan dinner', location: 'Tibetan Restaurant' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Potala Palace tour (advance booking required)', location: 'Potala Palace' },
+                            afternoon: { time: '14:00', activity: 'Jokhang Temple & Buddhist culture', location: 'Jokhang Temple' },
+                            evening: { time: '19:00', activity: 'Tibetan cultural show & yak meat dinner', location: 'Cultural Center' }
+                        },
+                        {
+                            morning: { time: '09:00', activity: 'Drepung Monastery visit', location: 'Drepung Monastery' },
+                            afternoon: { time: '14:00', activity: 'Sera Monastery & monk debates', location: 'Sera Monastery' },
+                            evening: { time: '19:00', activity: 'Traditional butter tea experience', location: 'Local Tea House' }
+                        },
+                        {
+                            morning: { time: '08:00', activity: 'Day trip to Namtso Lake (if weather permits)', location: 'Namtso Lake' },
+                            afternoon: { time: '14:00', activity: 'High altitude lake scenery & nomad culture', location: 'Namtso Lake' },
+                            evening: { time: '19:00', activity: 'Return to Lhasa, rest day', location: 'Lhasa' }
+                        }
+                    ]
+                },
+                'lijiang': {
+                    name: 'Lijiang',
+                    activities: [
+                        {
+                            morning: { time: '09:00', activity: 'Arrive in Lijiang, explore Old Town', location: 'Lijiang Old Town' },
+                            afternoon: { time: '14:00', activity: 'Jade Dragon Snow Mountain cable car', location: 'Jade Dragon Snow Mountain' },
+                            evening: { time: '19:00', activity: 'Naxi music and cultural show', location: 'Cultural Center' }
+                        },
+                        {
+                            morning: { time: '08:00', activity: 'Blue Moon Valley scenic area', location: 'Blue Moon Valley' },
+                            afternoon: { time: '14:00', activity: 'Baisha Village & ancient murals', location: 'Baisha Village' },
+                            evening: { time: '19:00', activity: 'Traditional Naxi dinner', location: 'Local Restaurant' }
+                        }
+                    ]
+                },
+                'dali': {
+                    name: 'Dali',
+                    activities: [
+                        {
+                            morning: { time: '09:00', activity: 'Arrive in Dali, check into hotel', location: 'Hotel' },
+                            afternoon: { time: '14:00', activity: 'Dali Ancient City & Three Pagodas', location: 'Dali Ancient City' },
+                            evening: { time: '19:00', activity: 'Bai ethnic cuisine dinner', location: 'Local Restaurant' }
+                        },
+                        {
+                            morning: { time: '08:00', activity: 'Erhai Lake cruise & cycling', location: 'Erhai Lake' },
+                            afternoon: { time: '14:00', activity: 'Xizhou Ancient Town & Bai architecture', location: 'Xizhou Town' },
+                            evening: { time: '19:00', activity: 'Lakeside dinner with sunset views', location: 'Erhai Lake' }
+                        }
+                    ]
+                },
+                'jiuzhaigou': {
+                    name: 'Jiuzhaigou',
+                    activities: [
+                        {
+                            morning: { time: '08:00', activity: 'Enter Jiuzhaigou Valley, Y-shaped route', location: 'Jiuzhaigou Entrance' },
+                            afternoon: { time: '14:00', activity: 'Five Flower Lake & Panda Lake waterfalls', location: 'Jiuzhaigou Valley' },
+                            evening: { time: '19:00', activity: 'Tibetan cultural dinner show', location: 'Local Hotel' }
+                        },
+                        {
+                            morning: { time: '08:00', activity: 'Continue exploring colorful lakes', location: 'Jiuzhaigou Valley' },
+                            afternoon: { time: '14:00', activity: 'Long Lake & seasonal waterfalls', location: 'Jiuzhaigou Valley' },
+                            evening: { time: '19:00', activity: 'Farewell dinner with local specialties', location: 'Jiuzhaigou' }
+                        }
+                    ]
+                },
+                'suzhou': {
+                    name: 'Suzhou',
+                    activities: [
+                        {
+                            morning: { time: '09:00', activity: 'Humble Administrator\'s Garden', location: 'Classical Gardens' },
+                            afternoon: { time: '14:00', activity: 'Pingjiang Road historical street', location: 'Pingjiang Road' },
+                            evening: { time: '19:00', activity: 'Canal cruise and local silk shopping', location: 'Grand Canal' }
+                        }
+                    ]
+                },
+                'huangshan': {
+                    name: 'Huangshan',
+                    activities: [
+                        {
+                            morning: { time: '07:00', activity: 'Cable car to Yellow Mountain summit', location: 'Huangshan Scenic Area' },
+                            afternoon: { time: '14:00', activity: 'Explore ancient pine trees and rock formations', location: 'Mountain Peaks' },
+                            evening: { time: '19:00', activity: 'Mountain hotel dinner with local specialties', location: 'Mountain Hotel' }
+                        },
+                        {
+                            morning: { time: '06:00', activity: 'Sunrise viewing at Mountain Peak', location: 'Huangshan Summit' },
+                            afternoon: { time: '14:00', activity: 'Descend and visit Hongcun Village', location: 'Hongcun Ancient Village' },
+                            evening: { time: '19:00', activity: 'Traditional Anhui cuisine dinner', location: 'Village Restaurant' }
+                        }
+                    ]
+                }
+            };
+
+            // Generate default activities for cities without detailed schedules
+            function generateDefaultActivity(cityId, dayNum) {
+                const cityInfo = enhancedCityDatabase[cityId];
+                if (!cityInfo) return null;
+
+                const baseActivities = {
+                    morning: { time: '09:00', activity: `Explore ${cityInfo.name} highlights`, location: 'City Center' },
+                    afternoon: { time: '14:00', activity: `Visit local attractions and cultural sites`, location: 'Main Attractions' },
+                    evening: { time: '19:00', activity: `Local cuisine dinner and evening exploration`, location: 'Local Restaurant' }
+                };
+
+                if (dayNum === 1) {
+                    baseActivities.morning = { time: '10:00', activity: `Arrive in ${cityInfo.name}, check into hotel`, location: 'Hotel' };
+                    baseActivities.afternoon = { time: '15:00', activity: `First exploration of ${cityInfo.name}`, location: 'City Center' };
+                }
+
+                return baseActivities;
+            }
+
+            // Calculate days per city based on duration and number of cities
+            const totalCityDays = duration - 1; // Reserve 1 day for travel
+            const baseDaysPerCity = Math.floor(totalCityDays / cities.length);
+            const extraDays = totalCityDays % cities.length;
+
+            let currentDay = 1;
+
+            cities.forEach((city, index) => {
+                // Get city info from cityDetails if available, otherwise create default
+                const cityInfo = cityDetails[city] || { 
+                    name: enhancedCityDatabase[city]?.name || city,
+                    activities: []
+                };
+
+                let daysInCity = baseDaysPerCity;
+                if (index < extraDays) daysInCity += 1;
+
+                // Ensure minimum 1 day per city
+                if (daysInCity < 1) daysInCity = 1;
+
+                // Add transportation info between cities
+                if (index > 0) {
+                    const prevCity = cities[index - 1];
+                    const prevCityInfo = enhancedCityDatabase[prevCity];
+                    const routeInfo = getRouteInfo(prevCity, city);
+                    const transportIcon = routeInfo.method === 'flight' ? '✈️' : '🚄';
+                    const transportName = routeInfo.method === 'flight' ? 'Flight' : 'High-speed Rail';
+                    
+                    itineraryHTML += `
+                        <div class="route-info">
+                            <strong>${transportIcon} Travel Day:</strong> ${prevCityInfo?.name || prevCity} → ${cityInfo.name}<br>
+                            <strong>Method:</strong> ${transportName} (${routeInfo.time})<br>
+                            <strong>Cost:</strong> ${routeInfo.cost} per person<br>
+                            <strong>Booking:</strong> ${routeInfo.method === 'flight' ? 'Trip.com or airline websites' : 'Trip.com or 12306.cn'}
+                        </div>
+                    `;
+                }
+
+                // Generate days for this city
+                const cityActivities = cityInfo.activities || [];
+                for (let day = 0; day < daysInCity; day++) {
+                    let dayActivities;
+                    
+                    if (day < cityActivities.length) {
+                        dayActivities = cityActivities[day];
+                    } else {
+                        // Generate default activities for cities without detailed schedules
+                        dayActivities = generateDefaultActivity(city, day + 1);
+                    }
+
+                    if (!dayActivities) continue;
+
+                    itineraryHTML += `
+                        <div class="day-item">
+                            <div class="day-header">Day ${currentDay}: ${cityInfo.name}</div>
+                    `;
+
+                    ['morning', 'afternoon', 'evening'].forEach(timeSlot => {
+                        if (dayActivities[timeSlot]) {
+                            const activity = dayActivities[timeSlot];
+                            itineraryHTML += `
+                                <div class="activity-time">
+                                    <div class="time">${activity.time}</div>
+                                    <div class="activity">
+                                        <strong>${activity.activity}</strong><br>
+                                        <em>📍 ${activity.location}</em>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+
+                    itineraryHTML += '</div>';
+                    currentDay++;
+                }
+            });
+
+            // Add final transportation
+            itineraryHTML += `
+                <div class="route-info">
+                    <strong>✈️ Departure Day:</strong> Return flight to home country<br>
+                    <strong>Recommended:</strong> Arrive at airport 3 hours early for international flights<br>
+                    <strong>Tips:</strong> Check duty-free shopping for last-minute souvenirs
+                </div>
+            `;
+
+            // Store itinerary data for download
+            currentItineraryData = {
+                cities: cities,
+                duration: duration,
+                purpose: purpose,
+                pace: pace,
+                html: itineraryHTML
+            };
+
+            document.getElementById('itinerary-content').innerHTML = itineraryHTML;
+            document.getElementById('itinerary-section').style.display = 'block';
+        }
+
+        function downloadItinerary() {
+            if (!currentItineraryData) {
+                alert('Please calculate your itinerary first!');
+                return;
+            }
+
+            // Create a simplified text version for download
+            const groupSize = document.getElementById('group-size').value;
+            const accommodation = document.getElementById('accommodation-level').value;
+            const food = document.getElementById('food-level').value;
+            const durationRange = document.getElementById('duration').value;
+            
+            let textContent = `CHINA TRAVEL ITINERARY
+Generated by China Travel Calculator
+
+===========================================
+TRIP OVERVIEW
+===========================================
+Duration: ${durationRange} days
+Purpose: ${currentItineraryData.purpose.charAt(0).toUpperCase() + currentItineraryData.purpose.slice(1)}
+Pace: ${currentItineraryData.pace.charAt(0).toUpperCase() + currentItineraryData.pace.slice(1)}
+Group Size: ${groupSize} travelers
+Accommodation: ${accommodation.charAt(0).toUpperCase() + accommodation.slice(1)}
+Food Level: ${food.replace('-', ' ').charAt(0).toUpperCase() + food.replace('-', ' ').slice(1)}
+
+Cities to Visit: ${currentItineraryData.cities.map(city => enhancedCityDatabase[city]?.name || city).join(', ')}
+
+===========================================
+BUDGET BREAKDOWN (Total for ${groupSize} travelers)
+===========================================
+International Flights: ${document.getElementById('flight-cost').textContent}
+Domestic Transportation: ${document.getElementById('domestic-transport-cost').textContent}
+Accommodation: ${document.getElementById('accommodation-cost').textContent}
+Food & Dining: ${document.getElementById('food-cost').textContent}
+Local Transportation: ${document.getElementById('local-transport-cost').textContent}
+Activities & Attractions: ${document.getElementById('activities-cost').textContent}
+Shopping & Souvenirs: ${document.getElementById('shopping-cost').textContent}
+Visa & Insurance: ${document.getElementById('visa-cost').textContent}
+
+TOTAL PER PERSON: ${document.getElementById('per-person-total').textContent}
+TOTAL FOR ALL: ${document.getElementById('total-all').textContent}
+
+===========================================
+DETAILED ITINERARY
+===========================================
+`;
+
+            // Extract text content from HTML (simplified version)
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = currentItineraryData.html;
+            
+            // Remove HTML tags and format for text
+            const routeInfos = tempDiv.querySelectorAll('.route-info');
+            const dayItems = tempDiv.querySelectorAll('.day-item');
+            
+            routeInfos.forEach(info => {
+                textContent += info.textContent.trim() + '\n\n';
+            });
+            
+            dayItems.forEach(day => {
+                const dayHeader = day.querySelector('.day-header');
+                const activities = day.querySelectorAll('.activity-time');
+                
+                if (dayHeader) {
+                    textContent += dayHeader.textContent + '\n';
+                    textContent += '═'.repeat(dayHeader.textContent.length) + '\n';
+                }
+                
+                activities.forEach(activity => {
+                    const time = activity.querySelector('.time');
+                    const activityContent = activity.querySelector('.activity');
+                    if (time && activityContent) {
+                        textContent += `${time.textContent} - ${activityContent.textContent.replace(/\n\s+/g, ' ').trim()}\n`;
+                    }
+                });
+                textContent += '\n';
+            });
+
+            textContent += `
+===========================================
+ESSENTIAL TRAVEL TIPS
+===========================================
+• Download VPN before arrival (Google, Facebook, Instagram blocked)
+• Set up WeChat Pay or Alipay with international card
+• Carry passport at all times (required for hotels)
+• Book attractions in advance (Great Wall, Forbidden City)
+• Learn basic Mandarin phrases or use translation apps
+• China is very safe for tourists with low crime rates
+• No tipping culture in China
+• High-speed rail is excellent for intercity travel
+
+===========================================
+ESSENTIAL APPS TO DOWNLOAD
+===========================================
+• WeChat (微信) - Payments & messaging
+• Alipay (支付宝) - Mobile payments
+• Didi (滴滴) - Ride-hailing service
+• Trip.com - Hotel & train bookings
+• MetroMan - Offline metro maps
+• VPN Service - Access blocked websites
+
+Generated on ${new Date().toLocaleDateString()}
+Visit our website for updates and more travel tools.
+`;
+
+            // Create and download the file
+            const blob = new Blob([textContent], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `China_Travel_Itinerary_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function getVisaCost(country) {
+            const visaFreeCountries = ['us', 'uk', 'au', 'de', 'fr', 'jp', 'kr', 'sg'];
+            if (visaFreeCountries.includes(country)) {
+                return 50; // Just travel insurance
+            }
+            return 185; // Visa fee + insurance
+        }
+
+        function updateVisaInfo(country) {
+            const visaFreeCountries = ['us', 'uk', 'au', 'de', 'fr', 'jp', 'kr', 'sg'];
+            const visaInfo = document.getElementById('visa-info');
+            
+            if (visaFreeCountries.includes(country)) {
+                visaInfo.innerHTML = `
+                    <div class="visa-status">
+                        <h4>✅ Visa-Free Entry Available</h4>
+                        <p>Citizens from your country can visit China visa-free for up to <strong>30 days</strong> for tourism, business, or visiting friends/family (valid until December 31, 2025).</p>
+                        <p><strong>Requirements:</strong></p>
+                        <ul>
+                            <li>Valid passport (6+ months remaining)</li>
+                            <li>Return ticket</li>
+                            <li>Hotel booking confirmation</li>
+                            <li>No work, study, or journalism activities</li>
+                        </ul>
+                    </div>
+                `;
+            } else {
+                visaInfo.innerHTML = `
+                    <div class="visa-status visa-required">
+                        <h4>📋 Visa Required</h4>
+                        <p>Citizens from your country need to apply for a Chinese visa before travel.</p>
+                        <p><strong>Tourist Visa (L) Requirements:</strong></p>
+                        <ul>
+                            <li>Valid passport (6+ months remaining)</li>
+                            <li>Completed application form</li>
+                            <li>Passport photos</li>
+                            <li>Flight bookings</li>
+                            <li>Hotel reservations</li>
+                            <li>Bank statements</li>
+                        </ul>
+                        <p><strong>Cost:</strong> $185 USD (regular processing), Valid for 60 days per entry</p>
+                    </div>
+                `;
+            }
+        }
+
+        function openTab(evt, tabName) {
+            const tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+
+            const tabbuttons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('active');
+        }
+
+        // Update visa info when country changes
+        document.getElementById('departure-country').addEventListener('change', function() {
+            updateVisaInfo(this.value);
+        });
+
+        // Initialize with US visa info
+        updateVisaInfo('us');
+    </script>
+</body>
+</html>
